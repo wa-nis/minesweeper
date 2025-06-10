@@ -1,0 +1,219 @@
+@import url("https://fonts.googleapis.com/css2?family=Cairo:wght@200..1000&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Jaro:opsz@6..72&display=swap");
+
+* {
+  padding: 0;
+  margin: 0;
+  user-select: none;
+}
+
+:root {
+  --row: 0;
+  --column: 0;
+  --bomb-flag-size: 0px;
+  --tile-width: 0px;
+  --tile-height: 0px;
+}
+
+body {
+  background-image: linear-gradient(-45deg, rgb(88, 252, 88), rgb(55, 181, 55));
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
+}
+
+#myH1 {
+  font-family: "Jaro", "Cairo", sans-serif;
+  letter-spacing: 2px;
+  font-size: 60px;
+}
+
+#game-info {
+  margin: 10px 0px;
+  width: 500px;
+  height: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#my-mines {
+  font-family: "Cairo", sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  right: 50px;
+  width: 250px;
+  height: 40px;
+  font-size: 35px;
+  & span {
+    font-family: "Cairo", sans-serif;
+    padding-right: 8px;
+    padding-top: 2px;
+    font-size: 32px;
+    color: white;
+  }
+}
+
+#timer {
+  background: linear-gradient(145deg, #2c2c2c, #1a1a1a);
+  color: #00ff00;
+  padding: 12px 25px;
+  border-radius: 8px;
+  font-size: 28px;
+  font-family: "Digital", monospace;
+  font-weight: bold;
+  margin: 15px 0;
+  display: inline-block;
+  min-width: 100px;
+  text-align: center;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3),
+    inset 0 2px 5px rgba(255, 255, 255, 0.1);
+  border: 2px solid #333;
+  text-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+  position: relative;
+  left: 50px;
+  overflow: hidden;
+}
+
+#timer::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(0, 255, 0, 0.2),
+    transparent
+  );
+  animation: shine 3s infinite;
+}
+
+@keyframes shine {
+  0% {
+    left: -100%;
+  }
+  20% {
+    left: 100%;
+  }
+  100% {
+    left: 100%;
+  }
+}
+
+#timer:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(0, 255, 0, 0.2);
+  transition: all 0.3s ease;
+}
+
+#container {
+  display: grid;
+  grid-template-rows: repeat(var(--row), 1fr);
+  grid-template-columns: repeat(var(--column), 1fr);
+  width: 500px;
+  height: 500px;
+  border: 2px solid;
+}
+
+.fa-flag {
+  color: rgb(255, 57, 57);
+}
+
+/*============
+  JavaScript
+============*/
+
+.tile-clicked {
+  background-color: rgb(228, 228, 228) !important;
+  transition: 100ms;
+}
+
+.loser,
+.winner {
+  background-color: #eee;
+  border-radius: 50px;
+  padding: 5px 0;
+  border: 1px solid;
+  transition: 100ms;
+}
+
+.loser {
+  text-shadow: 1px 1px 1px black;
+  box-shadow: 0 0 20px -3px rgb(255, 57, 57);
+  color: rgb(255, 57, 57);
+}
+
+.winner {
+  text-shadow: 1px 1px 1px black;
+  box-shadow: 0 0 20px -3px rgb(7, 200, 7);
+  color: rgb(7, 200, 7);
+}
+
+#container div {
+  font-family: "Cairo", sans-serif;
+  box-sizing: border-box;
+  display: flex;
+  width: var(--tile-width);
+  height: var(--tile-height);
+  justify-content: center;
+  align-items: center;
+  border: 1px solid black;
+  font-size: var(--bomb-flag-size);
+}
+
+.x1 {
+  color: blue;
+  font-weight: bold;
+  outline: 1px solid black;
+  text-shadow: 1px 1px 1px black;
+}
+.x2 {
+  color: rgb(0, 170, 0);
+  font-weight: bold;
+  outline: 1px solid black;
+  text-shadow: 1px 1px 1px black;
+}
+.x3 {
+  color: red;
+  font-weight: bold;
+  outline: 1px solid black;
+  text-shadow: 1px 1px 1px black;
+}
+.x4 {
+  color: darkblue;
+  font-weight: bold;
+  outline: 1px solid black;
+  text-shadow: 1px 1px 1px black;
+}
+.x5 {
+  color: brown;
+  font-weight: bold;
+  outline: 1px solid black;
+  text-shadow: 1px 1px 1px black;
+}
+.x6 {
+  color: Cyan;
+  font-weight: bold;
+  outline: 1px solid black;
+  text-shadow: 1px 1px 1px black;
+}
+.x7 {
+  color: Black;
+  font-weight: bold;
+  outline: 1px solid black;
+  text-shadow: 1px 1px 1px black;
+}
+.x8 {
+  color: grey;
+  font-weight: bold;
+  outline: 1px solid black;
+  text-shadow: 1px 1px 1px black;
+}
+
+/* bomb || <i class='fa-solid fa-bomb'></i> */
+/* flag || <i class='fa-solid fa-flag'></i> */
